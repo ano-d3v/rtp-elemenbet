@@ -16,10 +16,10 @@
   }
 
   function providerHref(key) {
-    var root = basePath() || location.pathname.replace(/\/+$/, "") || "/";
-    var url = new URL(location.origin + root + location.search + location.hash);
+    var site = (window.RTP_CONFIG && window.RTP_CONFIG.siteUrl) || (location.origin + basePath() + "/");
+    var url = new URL(site);
     url.searchParams.set("game", key);
-    return url.pathname.replace(/\/+$/, "") + "?" + url.searchParams.toString() + url.hash;
+    return url.pathname + "?" + url.searchParams.toString() + url.hash;
   }
 
   function bindAffiliateLinks() {
