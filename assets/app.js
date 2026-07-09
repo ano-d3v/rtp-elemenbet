@@ -11,11 +11,15 @@
     return (window.RTP_CONFIG && window.RTP_CONFIG.liveChat) || affiliateLink();
   }
 
+  function basePath() {
+    return (window.RTP_CONFIG && window.RTP_CONFIG.basePath) || "";
+  }
+
   function providerHref(key) {
-    var url = new URL(location.href);
+    var root = basePath() || location.pathname.replace(/\/+$/, "") || "/";
+    var url = new URL(location.origin + root + location.search + location.hash);
     url.searchParams.set("game", key);
-    var path = url.pathname.replace(/\/+$/, "") || "/";
-    return path + "?" + url.searchParams.toString() + url.hash;
+    return url.pathname.replace(/\/+$/, "") + "?" + url.searchParams.toString() + url.hash;
   }
 
   function bindAffiliateLinks() {
